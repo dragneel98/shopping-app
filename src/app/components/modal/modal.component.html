@@ -1,18 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Inline Modal</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding">
-  <ion-button expand="block" (click)="setOpen(true)">Open</ion-button>
+<ion-content class="container">
+  <ion-button expand="block" class="button" (click)="setOpen(true)"> Clear List </ion-button>
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-title>Modal</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false)">Close</ion-button>
-          </ion-buttons>
+            <ion-button slot="start" (click)="setOpen(false)">Cancel</ion-button>
+            <ion-button slot="end" (click)="confirmClear(false)">Confirm</ion-button>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">

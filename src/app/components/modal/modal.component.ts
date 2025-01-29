@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   IonButton,
   IonButtons,
@@ -15,8 +15,19 @@ import {
   styleUrls: ['modal.component.css'],
   imports: [IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar],
 })
-export class ExampleComponent {
+
+export class ModalComponent {
   isModalOpen = false;
+  @Input() clearList?: () => void;
+  constructor(
+  ) {}
+
+  confirmClear(isOpen: boolean) {
+    if (this.clearList) {
+      this.clearList();
+    }
+    this.setOpen(isOpen);
+  }
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;

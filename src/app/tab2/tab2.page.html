@@ -1,17 +1,49 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Lista de Compras</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="container">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Nombre del producto" label-placement="floating" fill="outline" placeholder="Enter Name" #productName></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Precio" label-placement="floating" fill="outline" type="number" placeholder="Enter price" #productPrice>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Cantidad" label-placement="floating" fill="outline" type="number" placeholder="Enter price" #productQuantity></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Descuento (%)" label-placement="floating" fill="outline" type="number" placeholder="Enter price" #productDiscount></ion-input>
+      </ion-item>
+      <!-- <ion-buttons class="button-container"> -->
+        <ion-button expand="block" color="primary" (click)="addItem(productName.value ? productName.value.toString() : '', productPrice.value ? +productPrice.value : 0, productQuantity.value ? +productQuantity.value : 0, productDiscount.value ? +productDiscount.value : 0)">
+          Agregar
+        </ion-button>
+        <app-modal [clearList]="clearList.bind(this)"></app-modal>
+      <!-- </ion-buttons> -->
+    </ion-card-content>
+  </ion-card>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+    <ion-item *ngFor="let item of items; let index = index">
+      <ion-checkbox slot="start" [(ngModel)]="item.purchased" (ionChange)="calculateTotal()"></ion-checkbox>
+      <ion-label>
+        {{ item.name }} ({{ item.quantity }} x {{ item.price | currency }}, Descuento: {{ item.discount }}%)
+      </ion-label>
+      <ion-button color="danger" fill="outline" slot="end" (click)="clearElement(index)">Limpiar ítem</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <div class="total-container ion-padding">
+    <ion-text color="dark">
+      <h2>Total: {{ total | currency }}</h2>
+    </ion-text>
+  </div>
 </ion-content>
+
