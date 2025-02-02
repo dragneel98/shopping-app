@@ -1,7 +1,3 @@
-.button-container{
-  width: 100%;
-}
-
 ion-content {
   display: flex;
   flex-direction: column;
@@ -17,4 +13,8 @@ ion-content {
   width: 100%;
   background-color: #f8f9fa;
   z-index: 10;
+}
+
+ion-input{
+  margin: 0.5em;
 }
