@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
-  IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonIcon, IonModal, IonList, IonCheckbox, IonText
+  IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonIcon, IonModal, IonList, IonCheckbox, IonText
 } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { ListStorageService } from 'src/services/list-service.service';
 import { ModalComponent } from "../components/modal/modal.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PurchaseServiceService } from 'src/services/purchase-service.service';
 
 interface ShoppingItem {
   name: string;
@@ -21,8 +20,7 @@ interface ShoppingItem {
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.css'],
-  imports: [CommonModule, FormsModule, ModalComponent, IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
-    IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonList, IonCheckbox, IonText],
+  imports: [CommonModule, FormsModule, ModalComponent, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonList, IonCheckbox, IonText],
 })
 export class Tab2Page {
   items: ShoppingItem[] = [];
@@ -30,6 +28,7 @@ export class Tab2Page {
 
   constructor(
     private ListStorageService: ListStorageService,
+    private purchaseService: PurchaseServiceService
   ) { }
 
   ngOnInit() {
@@ -80,6 +79,18 @@ export class Tab2Page {
       }
       return sum;
     }, 0);
+  }
+
+  async registerPurchase() {
+    const purchase = {
+      date: new Date().toISOString(),
+      total: this.total,
+      items: [...this.items]
+    };
+
+    await this.purchaseService.savePurchase(purchase);
+    this.items = []; // Vaciar la lista
+    this.total = 0;  // Reiniciar total
   }
 
 }

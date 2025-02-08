@@ -1,16 +1,17 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Tus Compras</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content>
+  <ion-list >
+    <ion-item *ngFor="let purchase of purchases">
+      <ion-label>
+        <h2>Compra del {{ purchase.date | date:'short' }}</h2>
+        <p>Total: {{ purchase.total | currency }}</p>
+      </ion-label>
+      <ion-button (click)="viewDetails(purchase)">Ver Detalles</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
