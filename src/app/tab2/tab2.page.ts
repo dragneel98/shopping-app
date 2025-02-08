@@ -29,7 +29,7 @@ export class Tab2Page {
   total: number = 0;
 
   constructor(
-    private localStorageService: ListStorageService,
+    private ListStorageService: ListStorageService,
   ) { }
 
   ngOnInit() {
@@ -37,12 +37,12 @@ export class Tab2Page {
   }
 
   saveItems() {
-    this.localStorageService.setItem('shoppingList', this.items);
+    this.ListStorageService.setItem('shoppingList', this.items);
   }
   clearList() {
     this.items = [];
     console.log(this.items);
-    this.localStorageService.removeItem('shoppingList');
+    this.ListStorageService.removeItem('shoppingList');
     this.calculateTotal();
     console.log('List cleared');
   }
@@ -51,10 +51,10 @@ export class Tab2Page {
     this.saveItems();
     this.calculateTotal();
   }
-  loadItems() {
-    const storedItems = this.localStorageService.getItem<any[]>('shoppingList');
+  async loadItems() {
+    const storedItems = await this.ListStorageService.getItem<any[]>('shoppingList');
     if (storedItems) {
-      this.items = storedItems;
+       this.items = storedItems;
       this.calculateTotal();
     }
   }
