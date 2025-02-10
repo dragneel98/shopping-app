@@ -19,7 +19,6 @@
       <ion-item>
         <ion-input label="Descuento (%)" label-placement="floating" fill="outline" type="number" placeholder="Enter price" #productDiscount></ion-input>
       </ion-item>
-      <!-- <ion-buttons class="button-container"> -->
         <div class="button-container">
           <ion-button expand="block" color="primary" (click)="addItem(productName.value ? productName.value.toString() : '', productPrice.value ? +productPrice.value : 0, productQuantity.value ? +productQuantity.value : 0, productDiscount.value ? +productDiscount.value : 0)">
             Agregar
