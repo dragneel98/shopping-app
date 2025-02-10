@@ -25,6 +25,7 @@ interface ShoppingItem {
 export class Tab2Page {
   items: ShoppingItem[] = [];
   total: number = 0;
+  modalContent: string = 'Are you sure?';
 
   constructor(
     private ListStorageService: ListStorageService,

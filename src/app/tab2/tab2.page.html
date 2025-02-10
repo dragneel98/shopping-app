@@ -5,8 +5,6 @@
 </ion-header>
 
 <ion-content class="container">
-  <!-- <ion-card>
-    <ion-card-content> -->
       <ion-item>
         <ion-input label="Nombre del producto" label-placement="floating" fill="outline" placeholder="Enter Name" #productName></ion-input>
       </ion-item>
@@ -26,12 +24,9 @@
           <ion-button expand="block" color="primary" (click)="addItem(productName.value ? productName.value.toString() : '', productPrice.value ? +productPrice.value : 0, productQuantity.value ? +productQuantity.value : 0, productDiscount.value ? +productDiscount.value : 0)">
             Agregar
           </ion-button>
-          <app-modal [clearList]="clearList.bind(this)"></app-modal>
+          <app-modal [onClick]="clearList.bind(this)" [ModalContent]="modalContent"></app-modal>
         </div>
-      <!-- </ion-buttons> -->
-    <!-- </ion-card-content>
-  </ion-card> -->
-  <!-- <app-modal [clearList]="clearList.bind(this)"></app-modal> -->
+
   <ion-list>
     <ion-item *ngFor="let item of items; let index = index">
       <ion-checkbox slot="start" [(ngModel)]="item.purchased" (ionChange)="calculateTotal()"></ion-checkbox>

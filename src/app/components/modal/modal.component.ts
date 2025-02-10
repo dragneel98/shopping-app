@@ -18,13 +18,17 @@ import {
 
 export class ModalComponent {
   isModalOpen = false;
-  @Input() clearList?: () => void;
+  @Input() onClick?: () => void;
+  @Input() ModalContent = 'Are you sure?';
+  @Input() buttonText = 'Confirm';
+  @Input() modalButton = 'limpiar lista';
+
   constructor(
   ) {}
 
   confirmClear(isOpen: boolean) {
-    if (this.clearList) {
-      this.clearList();
+    if (this.onClick) {
+      this.onClick();
     }
     this.setOpen(isOpen);
   }

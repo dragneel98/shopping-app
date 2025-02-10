@@ -11,7 +11,20 @@
         <h2>Compra del {{ purchase.date | date:'short' }}</h2>
         <p>Total: {{ purchase.total | currency }}</p>
       </ion-label>
-      <ion-button (click)="viewDetails(purchase)">Ver Detalles</ion-button>
+      <app-modal
+      [onClick]="viewDetails.bind(this, purchase)" [modalButton]="modalButton" [buttonText]="buttonText"
+      [ModalContent]="'
+      modalContent'"
+      ></app-modal>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let item of items; let index = index">
+      <ion-checkbox slot="start" [(ngModel)]="item.purchased" (ionChange)="calculateTotal()"></ion-checkbox>
+      <ion-label>
+        {{ item.name }} ({{ item.quantity }} x {{ item.price | currency }}, Descuento: {{ item.discount }}%)
+      </ion-label>
+      <ion-button color="danger" fill="outline" slot="end" (click)="clearElement(index)">Limpiar ítem</ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
