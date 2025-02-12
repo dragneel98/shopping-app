@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 @Injectable({
   providedIn: 'root',
 })
+// gestiona la lista que esta en el formulario
 export class ListStorageService {
   constructor() {}
 

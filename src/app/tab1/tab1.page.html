@@ -11,6 +11,7 @@
         <h2>Compra del {{ purchase.date | date:'short' }}</h2>
         <p>Total: {{ purchase.total | currency }}</p>
       </ion-label>
-      <ion-button (click)="viewDetails()"> ver detalles </ion-button>
-    </ion-item>      
+      <ion-button (click)="viewDetails(purchase)"> ver detalles </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -6,7 +6,8 @@ import { ListStorageService } from 'src/services/list-service.service';
 import { ModalComponent } from "../components/modal/modal.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PurchaseServiceService } from 'src/services/purchase-service.service';
+import { PurchaseService} from 'src/services/purchase-service.service';
+import { Preferences } from '@capacitor/preferences';
 
 interface ShoppingItem {
   name: string;
@@ -29,11 +30,19 @@ export class Tab2Page {
 
   constructor(
     private ListStorageService: ListStorageService,
-    private purchaseService: PurchaseServiceService
+    private purchaseService: PurchaseService
   ) { }
 
-  ngOnInit() {
-    this.loadItems();
+  async ngOnInit() {
+    // this.loadItems();
+    const { value } = await Preferences.get({ key: 'comingFromDetails' });
+
+    if (value === 'true') {
+      await this.loadSelectedPurchase();
+      await Preferences.remove({ key: 'comingFromDetails' }); // Eliminar flag
+    } else {
+      await this.loadItems();
+    }
   }
 
   saveItems() {
@@ -92,6 +101,15 @@ export class Tab2Page {
     await this.purchaseService.savePurchase(purchase);
     this.items = []; // Vaciar la lista
     this.total = 0;  // Reiniciar total
+  }
+
+  async loadSelectedPurchase() {
+    const selectedPurchase = await this.purchaseService.getSelectedPurchase();
+    if (selectedPurchase) {
+      this.items = selectedPurchase.items;
+      this.total = selectedPurchase.total;
+      await this.purchaseService.clearSelectedPurchase();
+    }
   }
 
 }
