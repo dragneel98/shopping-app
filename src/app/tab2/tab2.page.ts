@@ -45,21 +45,48 @@ export class Tab2Page {
     }
   }
 
+  ionViewWillEnter() {
+    this.loadSelectedPurchase();
+  }
+
+  async ngOnDestroy() {
+    await this.purchaseService.clearSelectedPurchase();
+  }
   saveItems() {
     this.ListStorageService.setItem('shoppingList', this.items);
   }
-  clearList() {
+
+  // clearList() {
+  //   this.items = [];
+  //   console.log(this.items);
+  //   this.ListStorageService.removeItem('shoppingList');
+  //   this.calculateTotal();
+  //   console.log('List cleared');
+  // }
+  async clearList() {
+    const selectedPurchase = await this.purchaseService.getSelectedPurchase();
+    console.log("Compra seleccionada:", selectedPurchase);
+
+    if (selectedPurchase) {
+      // Si la lista que el usuario está viendo es una compra guardada, la eliminamos de las compras
+      await this.purchaseService.deletePurchase(selectedPurchase);
+      await this.purchaseService.clearSelectedPurchase(); // Limpiar selección
+      console.log("Eliminando compra seleccionada:", selectedPurchase);
+    }
+    // Vaciar la lista actual del formulario
     this.items = [];
-    console.log(this.items);
-    this.ListStorageService.removeItem('shoppingList');
-    this.calculateTotal();
-    console.log('List cleared');
+    this.total = 0;
+    await this.ListStorageService.removeItem('shoppingList');
+    // await this.ListStorageService.clear();
   }
+
+
   clearElement(index: number) {
     this.items.splice(index, 1);
     this.saveItems();
     this.calculateTotal();
   }
+
   async loadItems() {
     const storedItems = await this.ListStorageService.getItem<any[]>('shoppingList');
     if (storedItems) {
@@ -108,7 +135,7 @@ export class Tab2Page {
     if (selectedPurchase) {
       this.items = selectedPurchase.items;
       this.total = selectedPurchase.total;
-      await this.purchaseService.clearSelectedPurchase();
+      // await this.purchaseService.clearSelectedPurchase();
     }
   }
 

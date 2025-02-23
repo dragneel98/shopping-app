@@ -21,9 +21,9 @@ export class ListStorageService {
     await Preferences.remove({ key });
   }
 
-  async clear(): Promise<void> {
-    await Preferences.clear();
-  }
+  // async clear(): Promise<void> {
+  //   await Preferences.clear();
+  // }
 }
 
 // import { Injectable } from '@angular/core';
