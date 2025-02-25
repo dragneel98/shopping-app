@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PurchaseService} from 'src/services/purchase-service.service';
 import { Preferences } from '@capacitor/preferences';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 interface ShoppingItem {
   name: string;
@@ -26,7 +27,7 @@ interface ShoppingItem {
 export class Tab2Page {
   items: ShoppingItem[] = [];
   total: number = 0;
-  modalContent: string = 'Are you sure?';
+  modalContent: string = 'Estas seguro ?';
 
   constructor(
     private ListStorageService: ListStorageService,
@@ -52,6 +53,9 @@ export class Tab2Page {
   async ngOnDestroy() {
     await this.purchaseService.clearSelectedPurchase();
   }
+
+
+
   saveItems() {
     this.ListStorageService.setItem('shoppingList', this.items);
   }

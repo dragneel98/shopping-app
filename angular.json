@@ -36,7 +36,10 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/global.css", "src/theme/variables.css"],
+            "styles": [
+              "src/global.css",
+              "src/theme/variables.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -77,6 +80,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "watch": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "app:build:production"
@@ -111,20 +117,26 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.css", "src/theme/variables.css"],
+            "styles": [
+              "src/global.css",
+              "src/theme/variables.css"
+            ],
             "scripts": []
           },
           "configurations": {
             "ci": {
-              "progress": false,
-              "watch": false
+              "progress": true,
+              "watch": true
             }
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }

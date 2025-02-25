@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { StatusBar } from '@capacitor/status-bar';
 import {
   IonButton,
   IonButtons,
@@ -23,8 +24,15 @@ export class ModalComponent {
   @Input() buttonText = 'Confirm';
   @Input() modalButton = 'limpiar lista';
 
-  constructor(
-  ) {}
+  constructor() {
+  }
+  ngOnInit() {
+    // this.hideStatusBar();
+  }
+
+  hideStatusBar = async () => {
+    await StatusBar.hide();
+  };
 
   confirmClear(isOpen: boolean) {
     if (this.onClick) {
@@ -33,7 +41,8 @@ export class ModalComponent {
     this.setOpen(isOpen);
   }
 
-  setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+    // await StatusBar.hide();
   }
 }

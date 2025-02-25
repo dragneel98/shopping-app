@@ -1,10 +1,10 @@
   <ion-button expand="block" class="button" (click)="setOpen(true)"> {{modalButton}} </ion-button>
   <ion-modal [isOpen]="isModalOpen" >
     <ng-template>
-      <ion-header>
-        <ion-toolbar>
+      <ion-header >
+        <ion-toolbar class="modalHeader" >
           <ion-title>Modal</ion-title>
-            <ion-button slot="start" (click)="setOpen(false)">Cancel</ion-button>
+            <ion-button slot="start" (click)="setOpen(false)">Cancelar</ion-button>
             <ion-button slot="end" (click)="confirmClear(false)"> {{buttonText}} </ion-button>
         </ion-toolbar>
       </ion-header>
